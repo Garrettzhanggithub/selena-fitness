@@ -1,26 +1,419 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+/* ═══════════════════════════════════════════════════
+   🍎 APPLE-STYLE DESIGN TOKENS — DUAL THEME
+   ═══════════════════════════════════════════════════ */
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ── Brand Accent (shared across themes) ── */
+  --accent:           #E8739A;
+  --accent-hover:     #D45B7F;
+
+  /* ── Typography Scale (shared) ── */
+  --text-xs:          0.6875rem;
+  --text-sm:          0.8125rem;
+  --text-base:        1rem;
+  --text-lg:          1.25rem;
+  --text-xl:          1.75rem;
+  --text-2xl:         2.5rem;
+  --text-hero:        clamp(3.5rem, 8vw, 6rem);
+
+  /* ── Spacing (shared) ── */
+  --section-py:       120px;
+  --section-px:       24px;
+  --container-max:    980px;
+  --container-wide:   1120px;
+
+  /* ── Border Radius (shared) ── */
+  --radius-sm:        8px;
+  --radius-md:        12px;
+  --radius-lg:        18px;
+  --radius-xl:        24px;
+  --radius-full:      980px;
+
+  /* ── Transitions (shared) ── */
+  --ease-out:         cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-in-out:      cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* ═══════════════════════════════════════════════
+     🌙 DARK THEME (default — matches system dark)
+     ═══════════════════════════════════════════════ */
+  --bg:               #000000;
+  --bg-alt:           #1D1D1F;
+  --bg-light-section: #F5F5F7;
+  --text-primary:     #FFFFFF;
+  --text-secondary:   #86868B;
+  --text-tertiary:    #6E6E73;
+  --card-bg:          rgba(255,255,255,0.04);
+  --card-border:      rgba(255,255,255,0.06);
+  --accent-light:     rgba(232,115,154,0.12);
+  --navbar-bg:        rgba(0,0,0,0.8);
+  --navbar-border:    rgba(255,255,255,0.04);
+  --input-bg:         rgba(255,255,255,0.04);
+  --input-border:     rgba(255,255,255,0.06);
+  --divider:          rgba(255,255,255,0.06);
+  --selection-bg:     var(--accent);
+  --selection-text:   #FFFFFF;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* ═══════════════════════════════════════════════
+   ☀️ LIGHT THEME (auto — matches system light)
+   ═══════════════════════════════════════════════ */
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --bg:               #FFFFFF;
+    --bg-alt:           #F5F5F7;
+    --bg-light-section: #F5F5F7;
+    --text-primary:     #1D1D1F;
+    --text-secondary:   #6E6E73;
+    --text-tertiary:    #86868B;
+    --card-bg:          #FFFFFF;
+    --card-border:      rgba(0,0,0,0.08);
+    --accent-light:     rgba(232,115,154,0.10);
+    --navbar-bg:        rgba(255,255,255,0.8);
+    --navbar-border:    rgba(0,0,0,0.06);
+    --input-bg:         #FFFFFF;
+    --input-border:     rgba(0,0,0,0.12);
+    --divider:          rgba(0,0,0,0.08);
+    --selection-bg:     var(--accent);
+    --selection-text:   #FFFFFF;
   }
 }
 
+/* ═══════════════════════════════════════════════
+   BASE — Apple-style reset
+   ═══════════════════════════════════════════════ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 400;
+  line-height: 1.47059;
+  letter-spacing: -0.022em;
+  transition: background 0.3s var(--ease-out), color 0.3s var(--ease-out);
+}
+
+::selection {
+  background: var(--selection-bg);
+  color: var(--selection-text);
+}
+
+/* ═══════════════════════════════════════════════
+   TYPOGRAPHY — Apple-style scale
+   ═══════════════════════════════════════════════ */
+
+.display {
+  font-size: var(--text-hero);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  font-weight: 700;
+}
+
+.heading-xl {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
+
+.heading-lg {
+  font-size: var(--text-2xl);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+
+.heading-md {
+  font-size: var(--text-xl);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+}
+
+.text-body {
+  font-size: var(--text-base);
+  line-height: 1.5;
+  color: var(--text-secondary);
+  letter-spacing: -0.021em;
+}
+
+.text-small {
+  font-size: var(--text-sm);
+  line-height: 1.4;
+  color: var(--text-secondary);
+}
+
+.text-meta {
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+}
+
+.section-label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+/* ═══════════════════════════════════════════════
+   LAYOUT — Apple-style containers
+   ═══════════════════════════════════════════════ */
+
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--section-px);
+}
+
+.container-wide {
+  max-width: var(--container-wide);
+  margin: 0 auto;
+  padding: 0 var(--section-px);
+}
+
+.section {
+  padding: var(--section-py) var(--section-px);
+  max-width: var(--container-wide);
+  margin: 0 auto;
+}
+
+.section-full {
+  padding: var(--section-py) 0;
+}
+
+.section-divider {
+  max-width: var(--container-wide);
+  margin: 0 auto;
+  height: 1px;
+  background: var(--divider);
+}
+
+/* ═══════════════════════════════════════════════
+   SCROLL ANIMATIONS — Apple-style fade + slide up
+   ═══════════════════════════════════════════════ */
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s var(--ease-out), transform 1s var(--ease-out);
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scale-in {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 1.2s var(--ease-out), transform 1.2s var(--ease-out);
+}
+
+.scale-in.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.4s; }
+.delay-5 { transition-delay: 0.5s; }
+
+/* ═══════════════════════════════════════════════
+   CARD — Apple-style (minimal, clean)
+   ═══════════════════════════════════════════════ */
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out), border-color 0.4s var(--ease-out), background 0.3s var(--ease-out);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(232,115,154,0.2);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08), 0 0 0 1px rgba(232,115,154,0.1);
+}
+
+/* ═══════════════════════════════════════════════
+   BUTTONS — Apple-style pill buttons
+   ═══════════════════════════════════════════════ */
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--accent); color: #FFFFFF;
+  padding: 14px 32px; border-radius: var(--radius-full);
+  font-weight: 500; font-size: var(--text-sm);
+  border: none; cursor: pointer;
+  transition: background 0.3s var(--ease-out), transform 0.2s var(--ease-out), box-shadow 0.3s var(--ease-out);
+  text-decoration: none; letter-spacing: -0.01em;
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+  transform: scale(1.02);
+  box-shadow: 0 4px 20px rgba(232,115,154,0.3);
+}
+
+.btn-primary:active { transform: scale(0.98); }
+
+.btn-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--accent); font-size: var(--text-base);
+  font-weight: 500; text-decoration: none;
+  transition: gap 0.3s var(--ease-out);
+}
+
+.btn-link:hover { gap: 10px; }
+
+.btn-link svg { transition: transform 0.3s var(--ease-out); }
+.btn-link:hover svg { transform: translateX(2px); }
+
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: var(--accent);
+  padding: 14px 32px; border-radius: var(--radius-full);
+  font-weight: 500; font-size: var(--text-sm);
+  border: 1.5px solid var(--accent); cursor: pointer;
+  transition: background 0.3s var(--ease-out), color 0.3s var(--ease-out), transform 0.2s var(--ease-out);
+  text-decoration: none; letter-spacing: -0.01em;
+}
+
+.btn-outline:hover {
+  background: var(--accent);
+  color: #FFFFFF;
+  transform: scale(1.02);
+}
+
+/* ═══════════════════════════════════════════════
+   NAVBAR — Apple-style glass morphism
+   ═══════════════════════════════════════════════ */
+
+.navbar-glass {
+  background: var(--navbar-bg);
+  backdrop-filter: saturate(180%) blur(40px);
+  -webkit-backdrop-filter: saturate(180%) blur(40px);
+  border-bottom: 1px solid var(--navbar-border);
+  transition: background 0.3s var(--ease-out), border-color 0.3s var(--ease-out);
+}
+
+/* ═══════════════════════════════════════════════
+   INTENSITY BADGES
+   ═══════════════════════════════════════════════ */
+
+.intensity-badge {
+  font-size: 0.6875rem; font-weight: 600; padding: 4px 10px;
+  border-radius: var(--radius-full); text-transform: uppercase; letter-spacing: 0.05em;
+}
+
+.intensity-beginner     { background: rgba(52,199,89,0.12); color: #34D399; }
+.intensity-intermediate { background: rgba(255,159,10,0.12); color: #FBBF24; }
+.intensity-advanced     { background: rgba(255,69,58,0.12); color: #FF6B6B; }
+
+/* ═══════════════════════════════════════════════
+   TESTIMONIAL — Apple-style quote card
+   ═══════════════════════════════════════════════ */
+
+.testimonial-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  position: relative;
+  transition: background 0.3s var(--ease-out), border-color 0.3s var(--ease-out);
+}
+
+.testimonial-card::before {
+  content: '';
+  position: absolute; top: 0; left: 32px;
+  width: 48px; height: 2px;
+  background: var(--accent);
+}
+
+/* ═══════════════════════════════════════════════
+   STATS — Apple-style counter
+   ═══════════════════════════════════════════════ */
+
+.stat-item { text-align: center; }
+
+.stat-number {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.stat-label {
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+  margin-top: 4px;
+  letter-spacing: -0.01em;
+}
+
+/* ═══════════════════════════════════════════════
+   IMAGE PLACEHOLDER — Apple-style gradient art
+   ═══════════════════════════════════════════════ */
+
+.img-placeholder {
+  background: linear-gradient(135deg, var(--accent-light) 0%, transparent 60%);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--accent); font-size: 1.25rem; font-weight: 600;
+  position: relative; overflow: hidden;
+}
+
+.img-placeholder::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 30% 40%, rgba(232,115,154,0.15) 0%, transparent 50%),
+    radial-gradient(circle at 70% 60%, rgba(232,115,154,0.08) 0%, transparent 40%);
+}
+
+.img-placeholder::after {
+  content: '';
+  position: absolute;
+  width: 50%; height: 50%;
+  border: 1.5px solid rgba(232,115,154,0.2);
+  border-radius: 50%;
+  top: 25%; left: 25%;
+}
+
+/* ═══════════════════════════════════════════════
+   GRADIENT TEXT — Apple-style gradient headings
+   ═══════════════════════════════════════════════ */
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent) 0%, #F472B6 50%, #C084FC 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ═══════════════════════════════════════════════
+   REDUCED MOTION
+   ═══════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+  html { scroll-behavior: auto; }
 }

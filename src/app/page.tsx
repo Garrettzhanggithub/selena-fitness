@@ -1,65 +1,310 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useEffect, useRef } from "react";
+import Link from "next/link";
+
+// ─── Intersection Observer Hook ──────────────────────
+function useFadeUp() {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { el.classList.add("visible"); observer.unobserve(el); } },
+      { threshold: 0.12, rootMargin: "0px 0px -80px 0px" },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+  return ref;
+}
+
+function FadeUp({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+  const ref = useFadeUp();
+  return <div ref={ref} className={`fade-up delay-${delay}`}>{children}</div>;
+}
+
+function ScaleIn({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+  const ref = useFadeUp();
+  return <div ref={ref} className={`scale-in delay-${delay}`}>{children}</div>;
+}
+
+// ─── Data ──────────────────────────────────────────────
+
+const featuredPrograms = [
+  { title: "Full Body HIIT Blast", description: "20-minute high-intensity intervals targeting every major muscle group. Medical-grade warmup and cooldown built in.", duration: "20 min", intensity: "Advanced" as const, category: "HIIT" },
+  { title: "Core & Stability", description: "Anti-rotation work designed by an RN who understands anatomy inside out. Injury prevention first.", duration: "30 min", intensity: "Intermediate" as const, category: "Strength" },
+  { title: "Recovery Flow", description: "Gentle mobility and breathwork for rest days. Because recovery is where the magic happens.", duration: "25 min", intensity: "Beginner" as const, category: "Recovery" },
+];
+
+const testimonials = [
+  { name: "Sarah M.", role: "Marathon Runner", quote: "Selena's medical background is a game-changer. She caught my hip impingement before it became a full injury and redesigned my training around it. I've never felt stronger.", avatar: "SM" },
+  { name: "James L.", role: "Software Engineer", quote: "After years of desk work, I was stiff and sore in places I didn't know existed. Selena built me a program that actually fits my schedule — and my body. Down 25 lbs in 4 months.", avatar: "JL" },
+  { name: "Priya K.", role: "Post-Natal Client", quote: "As a new mom, I needed someone who understood both fitness and anatomy. Selena's pre/post-natal program helped me rebuild my core safely and confidently.", avatar: "PK" },
+];
+
+const stats = [
+  { number: "500+", label: "Clients Trained" },
+  { number: "RN", label: "Medical Certified" },
+  { number: "100%", label: "Evidence-Based" },
+  { number: "4.9★", label: "Client Rating" },
+];
+
+// ─── Components ────────────────────────────────────────
+
+function WorkoutCard({ title, description, duration, intensity, category }: {
+  title: string; description: string; duration: string;
+  intensity: "Beginner" | "Intermediate" | "Advanced"; category: string;
+}) {
+  const badgeClass =
+    intensity === "Beginner" ? "intensity-beginner" :
+    intensity === "Intermediate" ? "intensity-intermediate" :
+    "intensity-advanced";
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <div className="card flex flex-col gap-4">
+      <div className="flex items-center justify-between">
+        <span className="text-meta uppercase tracking-wider">{category}</span>
+        <span className={`intensity-badge ${badgeClass}`}>{intensity}</span>
+      </div>
+      <h3 className="heading-md text-[var(--text-primary)]">{title}</h3>
+      <p className="text-body flex-1">{description}</p>
+      <div className="flex items-center justify-between pt-4 border-t border-[var(--card-border)]">
+        <span className="text-small flex items-center gap-2">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          {duration}
+        </span>
+        <Link href="/workouts" className="btn-link text-sm">
+          Learn More
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </Link>
+      </div>
     </div>
+  );
+}
+
+// ─── Page — Apple-style layout ────────────────────────
+
+export default function HomePage() {
+  return (
+    <>
+      {/* ═══ HERO — Apple-style full-width band ═══ */}
+      <section className="section-full relative overflow-hidden" style={{ paddingTop: 140, paddingBottom: 120 }}>
+        {/* Background glow — subtle Apple-style ambient light */}
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-b from-[var(--accent-light)] to-transparent rounded-full blur-[120px] pointer-events-none opacity-60" />
+
+        <div className="container text-center relative z-10">
+          {/* Eyebrow */}
+          <FadeUp>
+            <p className="section-label inline-block mb-6">RN-Certified Fitness Coach · Vancouver, BC</p>
+          </FadeUp>
+
+          {/* Hero headline — Apple-style massive type */}
+          <FadeUp delay={1}>
+            <h1 className="display text-[var(--text-primary)] mb-8 max-w-4xl mx-auto">
+              Train Smarter.<br />
+              <span className="gradient-text">Recover Stronger.</span>
+            </h1>
+          </FadeUp>
+
+          {/* Subheadline — Apple-style muted body copy */}
+          <FadeUp delay={2}>
+            <p className="text-lg md:text-xl text-[var(--text-secondary)] max-w-2xl mx-auto mb-12 leading-relaxed">
+              A registered nurse who combines clinical expertise with elite-level training. 
+              Evidence-based programs designed for real results, built around your body.
+            </p>
+          </FadeUp>
+
+          {/* CTA buttons — Apple-style dual buttons */}
+          <FadeUp delay={3}>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link href="/booking" className="btn-primary">
+                Book a Session
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </Link>
+              <Link href="/workouts" className="btn-outline">View Programs</Link>
+            </div>
+          </FadeUp>
+
+          {/* Social proof — Apple-style stat row */}
+          <FadeUp delay={4}>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-24 pt-12 border-t border-[var(--card-border)] max-w-2xl mx-auto">
+              {stats.map((s) => (
+                <div key={s.label} className="stat-item">
+                  <p className="stat-number">{s.number}</p>
+                  <p className="stat-label">{s.label}</p>
+                </div>
+              ))}
+            </div>
+          </FadeUp>
+        </div>
+      </section>
+
+      {/* ═══ FEATURED PROGRAMS — Apple-style dark band ═══ */}
+      <section className="section-full bg-[var(--bg-alt)]">
+        <div className="container">
+          <FadeUp>
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12">
+              <div>
+                <p className="section-label">Programs</p>
+                <h2 className="heading-xl text-[var(--text-primary)]">Featured Workouts.</h2>
+              </div>
+              <Link href="/workouts" className="btn-link mt-4 md:mt-0">
+                View All Programs
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </Link>
+            </div>
+          </FadeUp>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {featuredPrograms.map((w, i) => (
+              <FadeUp key={w.title} delay={i}>
+                <WorkoutCard {...w} />
+              </FadeUp>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ WHY SELENA — Apple-style split section ═══ */}
+      <section className="section-full">
+        <div className="container">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            {/* Left: Visual — Apple-style large image area */}
+            <ScaleIn>
+              <div className="relative aspect-[4/5] max-w-md">
+                <div className="absolute inset-0 img-placeholder" />
+                {/* Decorative accent ring — Apple style */}
+                <div className="absolute -top-4 -right-4 w-20 h-20 border border-[var(--accent-light)] rounded-full opacity-60" />
+              </div>
+            </ScaleIn>
+
+            {/* Right: Text — Apple-style copy */}
+            <FadeUp delay={1}>
+              <p className="section-label">Why Selena</p>
+              <h2 className="heading-xl text-[var(--text-primary)] mb-6">
+                Not Just a Coach.<br />
+                <span className="gradient-text">A Registered Nurse.</span>
+              </h2>
+              <p className="text-body mb-8 leading-relaxed">
+                Selena brings over 3 years of clinical nursing experience to every session. 
+                She understands anatomy, physiology, and recovery at a medical level — meaning 
+                your workouts are not just effective, they're safe and sustainable.
+              </p>
+              <ul className="space-y-4">
+                {[
+                  "Medical-grade injury prevention",
+                  "Personalized recovery protocols",
+                  "Nutrition guidance backed by science",
+                  "Pre/post-natal training expertise",
+                ].map((item) => (
+                  <li key={item} className="flex items-center gap-3 text-body">
+                    <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[var(--accent-light)] flex items-center justify-center">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="3"><path d="M20 6L9 17l-5-5"/></svg>
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </FadeUp>
+          </div>
+        </div>
+      </section>
+
+      <div className="section-divider" />
+
+      {/* ═══ TESTIMONIALS — Apple-style light band ═══ */}
+      <section className="section-full bg-[var(--bg-light-section)]">
+        <div className="container">
+          <FadeUp>
+            <div className="text-center mb-16">
+              <p className="section-label" style={{ color: "var(--accent)" }}>Testimonials</p>
+              <h2 className="heading-xl text-[var(--bg-alt)]">What Clients Say.</h2>
+            </div>
+          </FadeUp>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {testimonials.map((t, i) => (
+              <FadeUp key={t.name} delay={i}>
+                <div className="testimonial-card h-full flex flex-col" style={{ background: "var(--text-primary)", borderColor: "transparent", boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}>
+                  <p className="text-body relative z-10 mb-6 leading-relaxed italic flex-1" style={{ color: "var(--text-tertiary)" }}>&ldquo;{t.quote}&rdquo;</p>
+                  <div className="flex items-center gap-3 pt-4 border-t border-[var(--card-border)]">
+                    <div className="w-10 h-10 rounded-full bg-[var(--accent-light)] flex items-center justify-center text-sm font-bold" style={{ color: "var(--accent)" }}>
+                      {t.avatar}
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold" style={{ color: "var(--bg-alt)" }}>{t.name}</p>
+                      <p className="text-meta">{t.role}</p>
+                    </div>
+                  </div>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ LATEST ARTICLES — Apple-style dark band ═══ */}
+      <section className="section-full">
+        <div className="container">
+          <FadeUp>
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12">
+              <div>
+                <p className="section-label">Blog</p>
+                <h2 className="heading-xl text-[var(--text-primary)]">Latest Articles.</h2>
+              </div>
+              <Link href="/blog" className="btn-link mt-4 md:mt-0">
+                All Articles
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </Link>
+            </div>
+          </FadeUp>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {[
+              { slug: "nutrition-timing", title: "The Science of Nutrition Timing", excerpt: "When you eat matters just as much as what you eat. Here's the evidence-based breakdown.", date: "Jul 10, 2025", category: "Nutrition" },
+              { slug: "rest-day-recovery", title: "Why Rest Days Build Muscle", excerpt: "Your muscles grow during recovery, not during the workout. Learn how to optimize your rest protocol.", date: "Jul 5, 2025", category: "Science" },
+            ].map((post, i) => (
+              <FadeUp key={post.slug} delay={i}>
+                <Link href={`/blog/${post.slug}`} className="card flex flex-col gap-3 group no-underline">
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="font-semibold uppercase tracking-wider" style={{ color: "var(--accent)" }}>{post.category}</span>
+                    <span className="text-[var(--text-secondary)]">·</span>
+                    <span className="text-[var(--text-tertiary)]">{post.date}</span>
+                  </div>
+                  <h3 className="heading-md text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors">{post.title}</h3>
+                  <p className="text-body flex-1 line-clamp-3">{post.excerpt}</p>
+                  <span className="btn-link text-sm mt-2">
+                    Read More
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </span>
+                </Link>
+              </FadeUp>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ CTA — Apple-style gradient band ═══ */}
+      <section className="section-full relative overflow-hidden">
+        {/* Background gradient — Apple-style subtle glow */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[var(--bg-alt)] to-[var(--bg)]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-b from-[var(--accent-light)] to-transparent rounded-full blur-[100px] pointer-events-none opacity-40" />
+
+        <div className="container text-center relative z-10">
+          <FadeUp>
+            <h2 className="heading-xl text-[var(--text-primary)] mb-4">Ready to Train Smarter?</h2>
+            <p className="text-body max-w-xl mx-auto mb-10">
+              Book your first session with Selena and experience the difference of a 
+              medical-grade approach to fitness.
+            </p>
+            <Link href="/booking" className="btn-primary text-base px-10 py-5">
+              Book Your Session
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </Link>
+          </FadeUp>
+        </div>
+      </section>
+    </>
   );
 }
