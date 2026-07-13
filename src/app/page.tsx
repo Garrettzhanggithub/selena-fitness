@@ -232,8 +232,8 @@ export default function HomePage() {
 
       <div className="section-divider" />
 
-      {/* ═══ TESTIMONIALS — Apexcoach light band ═══ */}
-      <section className="section-full bg-[var(--bg-light-section)]">
+      {/* ═══ TESTIMONIALS — theme-aware band ═══ */}
+      <section className="section-full" style={{ background: "var(--bg-light-section)", color: "inherit" }}>
         <div className="container-wide px-6">
           <FadeUp>
             <div className="text-center mb-16">
@@ -245,14 +245,14 @@ export default function HomePage() {
           <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {testimonials.map((t, i) => (
               <FadeUp key={t.name} delay={i}>
-                <div className="testimonial-card h-full flex flex-col" style={{ background: "var(--card-bg)", boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}>
+                <div className="testimonial-card h-full flex flex-col">
                   <p className="text-body relative z-10 mb-6 leading-relaxed italic flex-1">&ldquo;{t.quote}&rdquo;</p>
                   <div className="flex items-center gap-3 pt-4 border-t border-[var(--card-border)]">
                     <div className="w-10 h-10 rounded-full bg-[var(--accent-light)] flex items-center justify-center text-sm font-bold" style={{ color: "var(--accent)" }}>
                       {t.avatar}
                     </div>
                     <div>
-                      <p className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>{t.name}</p>
+                      <p className="text-sm font-semibold text-[var(--text-primary)]">{t.name}</p>
                       <p className="text-meta">{t.role}</p>
                     </div>
                   </div>
