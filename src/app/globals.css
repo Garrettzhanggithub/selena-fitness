@@ -7,9 +7,9 @@
 
 :root {
   /* ── Brand Accent (shared across themes) ── */
-  --accent:           #E8739A;
-  --accent-hover:     #D45B7F;
-  --accent-glow:      rgba(232,115,154,0.20);
+  --accent:           #10B981;        /* emerald-500 */
+  --accent-hover:     #059669;        /* emerald-600 */
+  --accent-glow:      rgba(16,185,129,0.20);
 
   /* ── Typography Scale (shared) ── */
   --text-xs:          0.6875rem;
@@ -423,7 +423,7 @@ body {
    ═══════════════════════════════════════════════ */
 
 .gradient-text {
-  background: linear-gradient(135deg, var(--accent) 0%, #F472B6 50%, #C084FC 100%);
+  background: linear-gradient(135deg, var(--accent) 0%, #34D399 50%, #6EE7B7 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

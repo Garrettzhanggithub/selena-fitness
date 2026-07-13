@@ -61,15 +61,6 @@ export default function BlogPage() {
           </div>
         </div>
       </section>
-
-      <section className="section-full">
-        <FadeUp>
-          <div className="card max-w-lg mx-auto text-center">
-            <h3 className="heading-md text-[var(--text-primary)] mb-2">Add New Article</h3>
-            <p className="text-small">Create a new <code className="bg-[var(--card-bg)] px-2 py-1 rounded">.md</code> file in <code className="bg-[var(--card-bg)] px-2 py-1 rounded">content/blog/</code> with frontmatter: title, date, category, and excerpt.</p>
-          </div>
-        </FadeUp>
-      </section>
     </div>
   );
 }
