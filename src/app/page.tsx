@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import VisionProHero from "./components/VisionProHero";
 
 // ─── Intersection Observer Hook ──────────────────────
 function useFadeUp() {
@@ -62,7 +63,7 @@ function WorkoutCard({ title, description, duration, intensity, category }: {
     "intensity-advanced";
 
   return (
-    <div className="card flex flex-col gap-4">
+    <div className="glass-card flex flex-col gap-4">
       <div className="flex items-center justify-between">
         <span className="text-meta">{category}</span>
         <span className={`intensity-badge ${badgeClass}`}>{intensity}</span>
@@ -88,77 +89,8 @@ function WorkoutCard({ title, description, duration, intensity, category }: {
 export default function HomePage() {
   return (
     <>
-      {/* ═══ HERO — Apexcoach-style full-screen with background image ═══ */}
-      <section className="relative min-h-screen flex flex-col bg-[var(--bg)] pt-20 overflow-hidden">
-        
-        {/* Background Image with Overlay — Apexcoach style */}
-        <div className="absolute inset-0 z-0">
-          <img 
-            src="https://images.unsplash.com/photo-1534438327276-14e5300c3df1?w=1920&h=1080&fit=crop" 
-            alt="Fitness Background" 
-            className="w-full h-full object-cover opacity-[0.08]"
-          />
-          {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[var(--bg)] via-[var(--bg)]/90 to-[var(--bg)]" />
-          <div className="absolute inset-0 bg-[var(--bg)]/60" />
-        </div>
-
-        {/* Main Content Area */}
-        <div className="relative z-10 flex-grow flex items-center justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-12 md:py-0">
-          <div className="space-y-8">
-            {/* Badge — Apexcoach style */}
-            <FadeUp>
-              <div className="inline-flex items-center space-x-2 bg-[var(--accent-light)] border border-[var(--accent)]/20 rounded-full px-4 py-1.5 backdrop-blur-sm animate-fade-in-up">
-                <span className="w-2 h-2 rounded-full bg-[var(--accent)] animate-pulse" />
-                <span className="text-[var(--accent)] text-sm font-medium tracking-wide uppercase">RN-Certified Fitness Coach · Vancouver, BC</span>
-              </div>
-            </FadeUp>
-
-            {/* Hero headline — Apexcoach style massive type */}
-            <FadeUp delay={1}>
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-[var(--text-primary)] tracking-tight leading-tight">
-                UNLEASH YOUR<br />
-                <span className="gradient-text">TRUE POTENTIAL</span>
-              </h1>
-            </FadeUp>
-
-            {/* Subheadline */}
-            <FadeUp delay={2}>
-              <p className="max-w-2xl mx-auto text-lg md:text-xl text-[var(--text-secondary)] leading-relaxed">
-                Elite personal training and nutrition coaching designed to sculpt your physique, 
-                elevate your performance, and transform your mind — backed by medical expertise.
-              </p>
-            </FadeUp>
-
-            {/* CTA buttons — Apexcoach style */}
-            <FadeUp delay={3}>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-                <Link href="/booking" className="btn-primary text-base px-10 py-5 shadow-xl" style={{ boxShadow: "0 8px 30px rgba(232,115,154,0.3)" }}>
-                  Start Your Transformation
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </Link>
-                <Link href="/workouts" className="btn-outline text-base px-10 py-5">
-                  View Programs
-                </Link>
-              </div>
-            </FadeUp>
-          </div>
-        </div>
-
-        {/* Stats/Social Proof Footer — Apexcoach style */}
-        <FadeUp delay={4}>
-          <div className="relative z-10 w-full border-t border-[var(--card-border)] bg-[var(--bg)]/50 backdrop-blur-md">
-            <div className="max-w-7xl mx-auto px-4 py-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-              {stats.map((s) => (
-                <div key={s.label}>
-                  <p className="stat-number">{s.number}</p>
-                  <p className="stat-label">{s.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </FadeUp>
-      </section>
+      {/* ═══ HERO — Vision Pro-style immersive 3D experience ═══ */}
+      <VisionProHero />
 
       {/* ═══ FEATURED PROGRAMS — Apexcoach dark band ═══ */}
       <section className="section-full bg-[var(--bg-alt)]">
@@ -245,7 +177,7 @@ export default function HomePage() {
           <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {testimonials.map((t, i) => (
               <FadeUp key={t.name} delay={i}>
-                <div className="testimonial-card h-full flex flex-col">
+                <div className="testimonial-card glass-card h-full flex flex-col">
                   <p className="text-body relative z-10 mb-6 leading-relaxed italic flex-1">&ldquo;{t.quote}&rdquo;</p>
                   <div className="flex items-center gap-3 pt-4 border-t border-[var(--card-border)]">
                     <div className="w-10 h-10 rounded-full bg-[var(--accent-light)] flex items-center justify-center text-sm font-bold" style={{ color: "var(--accent)" }}>
@@ -285,7 +217,7 @@ export default function HomePage() {
               { slug: "rest-day-recovery", title: "Why Rest Days Build Muscle", excerpt: "Your muscles grow during recovery, not during the workout. Learn how to optimize your rest protocol.", date: "Jul 5, 2025", category: "Science" },
             ].map((post, i) => (
               <FadeUp key={post.slug} delay={i}>
-                <Link href={`/blog/${post.slug}`} className="card flex flex-col gap-3 group no-underline">
+                <Link href={`/blog/${post.slug}`} className="glass-card flex flex-col gap-3 group no-underline">
                   <div className="flex items-center gap-2 text-xs">
                     <span className="font-semibold uppercase tracking-wider" style={{ color: "var(--accent)" }}>{post.category}</span>
                     <span className="text-[var(--text-secondary)]">·</span>
