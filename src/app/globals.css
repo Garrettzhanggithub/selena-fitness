@@ -3,35 +3,40 @@
 
 /* ═══════════════════════════════════════════════════
    ✨ SELENA FITNESS — LUXURY EDITORIAL DESIGN TOKENS
-   Design PRD v2.0 — Confident · Refined · Powerful
+   Design PRD v1.1 (强对比修订版) — Confident · Refined · Powerful
    ═══════════════════════════════════════════════════ */
 
 :root {
-  /* ── Color System (4.1) ── */
-  --color-primary:      #111111;
-  --color-secondary:    #FFFFFF;
-  --color-accent:       #C6A86A;
-  --color-accent-hover: #B8945D;
-  --color-background:   #F8F7F4;
-  --color-muted:        #6B6862;
-  --color-border:       #E5E2DC;
-  --color-success:      #3F7A5A;
-  --color-error:        #B3413E;
+  /* ── Color System (4.1 v1.1 — Strong Contrast) ── */
+  --color-bg-dark:        #0A0A0A;
+  --color-bg-light:       #F6F3EC;
+  --color-text-on-dark:   #FAFAF8;
+  --color-text-on-light:  #121212;
+  --color-muted-on-dark:  #B8B4AC;
+  --color-muted-on-light: #6B675F;
+  --color-accent:         #E8B854;
+  --color-accent-hover:   #D4A53C;
+  --color-accent-onlight: #8A6212;
+  --color-accent-large:   #B8860B;
+  --color-border-dark:    #2A2A2A;
+  --color-border-light:   #E5E2DC;
+  --color-success:        #3F7A5A;
+  --color-error:          #E05A52;
 
   /* ── Theme Variables (Light — default) ── */
-  --bg:                 var(--color-background);
+  --bg:                 var(--color-bg-light);
   --bg-alt:             #EFEEE9;
-  --bg-dark-section:    var(--color-primary);
-  --text-primary:       var(--color-primary);
-  --text-secondary:     var(--color-muted);
+  --bg-dark-section:    var(--color-bg-dark);
+  --text-primary:       var(--color-text-on-light);
+  --text-secondary:     var(--color-muted-on-light);
   --text-tertiary:      #9C9890;
   --card-bg:            #FFFFFF;
-  --card-border:        var(--color-border);
-  --navbar-bg:          rgba(248, 247, 244, 0.85);
+  --card-border:        var(--color-border-light);
+  --navbar-bg:          rgba(246, 243, 236, 0.85);
   --navbar-border:      rgba(0, 0, 0, 0.06);
   --input-bg:           #FFFFFF;
-  --input-border:       var(--color-border);
-  --divider:            var(--color-border);
+  --input-border:       var(--color-border-light);
+  --divider:            var(--color-border-light);
 
   /* ── Typography Scale (4.2) — Desktop ── */
   --text-hero:          clamp(3rem, 7vw, 4.5rem);
@@ -289,14 +294,16 @@ body {
 }
 
 /* Dark section button variants */
-.section-dark .btn-secondary {
-  color: var(--color-secondary);
+.section-dark .btn-secondary,
+.btn-secondary-dark {
+  color: var(--color-text-on-dark);
   border-color: rgba(255, 255, 255, 0.3);
 }
 
-.section-dark .btn-secondary:hover {
-  background: var(--color-secondary);
-  color: var(--color-primary);
+.section-dark .btn-secondary:hover,
+.btn-secondary-dark:hover {
+  background: var(--color-text-on-dark);
+  color: var(--color-bg-dark);
 }
 
 .btn-link {

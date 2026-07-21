@@ -17,15 +17,15 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={ref} className="relative min-h-screen flex items-end pb-16 md:pb-24 overflow-hidden" style={{ background: "var(--bg)" }}>
+    <section ref={ref} className="relative min-h-screen flex items-end pb-16 md:pb-24 overflow-hidden" style={{ background: "var(--color-bg-dark)" }}>
       {/* ── Background Image with Parallax ── */}
       <motion.div style={{ y }} className="absolute inset-0 z-0">
-        <div className="absolute inset-0 img-placeholder" style={{ background: "linear-gradient(135deg, var(--bg-alt) 0%, var(--color-border) 100%)" }}>
+        <div className="absolute inset-0 img-placeholder" style={{ background: "linear-gradient(135deg, #0A0A0A 0%, #1a1a1a 100%)" }}>
           {/* Replace with actual studio photo */}
-          <span className="opacity-40 text-lg italic">[ Studio Portrait ]</span>
+          <span className="opacity-40 text-lg italic" style={{ color: "var(--color-muted-on-dark)" }}>[ Studio Portrait ]</span>
         </div>
         {/* Subtle overlay gradient for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg)] via-transparent to-[var(--bg)]/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg-dark)] via-transparent to-[var(--color-bg-dark)]/30" />
       </motion.div>
 
       {/* ── Content — Left 40% ── */}
@@ -39,6 +39,7 @@ export default function Hero() {
           animate={loaded ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="text-caption mb-6"
+          style={{ color: "var(--color-accent)" }}
         >
           Personal Training · Los Angeles
         </motion.p>
@@ -48,7 +49,8 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={loaded ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-          className="display text-[var(--text-primary)] mb-6"
+          className="display mb-6"
+          style={{ color: "var(--color-text-on-dark)" }}
         >
           Strength That Changes
           <br />
@@ -61,8 +63,9 @@ export default function Hero() {
           animate={loaded ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           className="text-body-lg max-w-md mb-10"
+          style={{ color: "var(--color-muted-on-dark)" }}
         >
-          Medical-grade personal training by a Registered Nurse. 
+          Medical-grade personal training by a Registered Nurse.
           Evidence-based programs designed for lasting transformation.
         </motion.p>
 
@@ -76,7 +79,7 @@ export default function Hero() {
           <Link href="/booking" className="btn-primary">
             Book Consultation
           </Link>
-          <Link href="#results" className="btn-secondary">
+          <Link href="#results" className="btn-secondary btn-secondary-dark">
             See Results
           </Link>
         </motion.div>
@@ -90,11 +93,12 @@ export default function Hero() {
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
       >
         <div className="flex flex-col items-center gap-2">
-          <span className="text-caption" style={{ letterSpacing: "0.15em", fontSize: "0.6875rem" }}>Scroll</span>
+          <span className="text-caption" style={{ letterSpacing: "0.15em", fontSize: "0.6875rem", color: "var(--color-accent)" }}>Scroll</span>
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-            className="w-px h-8 bg-[var(--color-accent)]"
+            className="w-px h-8"
+            style={{ background: "var(--color-accent)" }}
           />
         </div>
       </motion.div>
