@@ -20,10 +20,12 @@ export default function Hero() {
     <section ref={ref} className="relative min-h-screen flex items-end pb-16 md:pb-24 overflow-hidden" style={{ background: "var(--color-bg-dark)" }}>
       {/* ── Background Image with Parallax ── */}
       <motion.div style={{ y }} className="absolute inset-0 z-0">
-        <div className="absolute inset-0 img-placeholder" style={{ background: "linear-gradient(135deg, #0A0A0A 0%, #1a1a1a 100%)" }}>
-          {/* Replace with actual studio photo */}
-          <span className="opacity-40 text-lg italic" style={{ color: "var(--color-muted-on-dark)" }}>[ Studio Portrait ]</span>
-        </div>
+        <img
+          src="/images/hero.jpg"
+          alt="Selena — Studio Portrait"
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ filter: "brightness(0.7)" }}
+        />
         {/* Subtle overlay gradient for text readability */}
         <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg-dark)] via-transparent to-[var(--color-bg-dark)]/30" />
       </motion.div>

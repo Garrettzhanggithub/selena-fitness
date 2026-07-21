@@ -70,14 +70,13 @@ export default function Transformation() {
               viewport={{ once: true, margin: "-40px" }}
             >
               <div className="group cursor-default">
-                {/* Image Placeholder */}
+                {/* Image */}
                 <div className="img-container mb-6 overflow-hidden">
-                  <div
-                    className="img-placeholder aspect-[3/4] transition-transform duration-500 group-hover:scale-[1.03]"
-                    style={{ background: "linear-gradient(135deg, var(--bg-alt) 0%, var(--card-border) 100%)" }}
-                  >
-                    <span className="opacity-40 text-lg italic">[ {story.name}'s Portrait ]</span>
-                  </div>
+                  <img
+                    src={`/images/transformation.jpg`}
+                    alt={`${story.name}'s transformation`}
+                    className="w-full aspect-[3/4] object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
                 </div>
 
                 {/* Label */}

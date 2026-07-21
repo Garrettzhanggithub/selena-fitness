@@ -84,13 +84,12 @@ export default function Results() {
 
                 {/* Signature */}
                 <div className="flex items-center gap-4">
-                  {/* Photo Placeholder */}
-                  <div
-                    className="w-12 h-12 rounded-full flex-shrink-0 img-placeholder"
-                    style={{ background: "linear-gradient(135deg, var(--bg-alt) 0%, var(--card-border) 100%)" }}
-                  >
-                    <span className="text-[0.625rem] opacity-40">[ {t.name.charAt(0)} ]</span>
-                  </div>
+                  {/* Photo */}
+                  <img
+                    src="/images/testimonial1.jpg"
+                    alt={t.name}
+                    className="w-12 h-12 rounded-full flex-shrink-0 object-cover"
+                  />
                   <div>
                     <p
                       className="font-semibold"

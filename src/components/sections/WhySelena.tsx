@@ -42,12 +42,11 @@ export default function WhySelena() {
           {/* Left — Portrait */}
           <motion.div variants={{ hidden: { opacity: 0, x: -30 }, visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } } }}>
             <div className="img-container">
-              <div
-                className="img-placeholder aspect-[4/5]"
-                style={{ background: "linear-gradient(135deg, var(--bg-alt) 0%, var(--card-border) 100%)" }}
-              >
-                <span className="opacity-40 text-xl italic">[ Selena — Editorial Portrait ]</span>
-              </div>
+              <img
+                src="/images/coach.jpg"
+                alt="Selena — Editorial Portrait"
+                className="w-full aspect-[4/5] object-cover"
+              />
             </div>
           </motion.div>
 

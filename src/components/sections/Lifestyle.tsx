@@ -3,12 +3,12 @@
 import { motion } from "framer-motion";
 
 const gallery = [
-  { caption: "Morning session at the studio", aspect: "aspect-[4/3]" },
-  { caption: "Small group training energy", aspect: "aspect-square" },
-  { caption: "Nutrition prep made simple", aspect: "aspect-[3/4]" },
-  { caption: "Recovery and mobility work", aspect: "aspect-square" },
-  { caption: "Client milestone celebration", aspect: "aspect-[4/3]" },
-  { caption: "The space that inspires you", aspect: "aspect-[3/4]" },
+  { caption: "Morning session at the studio", aspect: "aspect-[4/3]", src: "/images/lifestyle.jpg" },
+  { caption: "Small group training energy", aspect: "aspect-square", src: "/images/training.jpg" },
+  { caption: "Nutrition prep made simple", aspect: "aspect-[3/4]", src: "/images/lifestyle2.jpg" },
+  { caption: "Recovery and mobility work", aspect: "aspect-square", src: "/images/results.jpg" },
+  { caption: "Client milestone celebration", aspect: "aspect-[4/3]", src: "/images/lifestyle3.jpg" },
+  { caption: "The space that inspires you", aspect: "aspect-[3/4]", src: "/images/transformation.jpg" },
 ];
 
 const containerVariants = {
@@ -59,12 +59,11 @@ export default function Lifestyle() {
               className="group cursor-default"
             >
               <div className="img-container overflow-hidden">
-                <div
-                  className={`img-placeholder ${item.aspect} transition-transform duration-700 group-hover:scale-[1.04]`}
-                  style={{ background: "linear-gradient(135deg, var(--bg-alt) 0%, var(--card-border) 100%)" }}
-                >
-                  <span className="opacity-30 text-sm italic">[ Photo {i + 1} ]</span>
-                </div>
+                <img
+                  src={item.src}
+                  alt={item.caption}
+                  className={`w-full ${item.aspect} object-cover transition-transform duration-700 group-hover:scale-[1.04]`}
+                />
               </div>
               <p
                 className="mt-4 text-caption tracking-wider"
