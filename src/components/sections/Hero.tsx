@@ -17,17 +17,17 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={ref} className="relative min-h-screen flex items-end pb-16 md:pb-24 overflow-hidden" style={{ background: "var(--color-bg-dark)" }}>
-      {/* ── Background Image with Parallax ── */}
+    <section ref={ref} className="relative min-h-screen flex items-end pb-24 md:pb-32 overflow-hidden" style={{ background: "var(--color-bg-dark)" }}>
+      {/* ── Background Image with Parallax — Portrait Studio Photo ── */}
       <motion.div style={{ y }} className="absolute inset-0 z-0">
         <img
           src="/images/hero.jpg"
           alt="Selena — Studio Portrait"
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ filter: "brightness(0.7)" }}
+          className="absolute inset-0 w-full h-full object-cover object-center"
+          style={{ filter: "brightness(0.6)" }}
         />
-        {/* Subtle overlay gradient for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg-dark)] via-transparent to-[var(--color-bg-dark)]/30" />
+        {/* Overlay gradients for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg-dark)] via-transparent to-[var(--color-bg-dark)]/40" />
       </motion.div>
 
       {/* ── Content — Left 40% ── */}
@@ -71,37 +71,55 @@ export default function Hero() {
           Evidence-based programs designed for lasting transformation.
         </motion.p>
 
-        {/* CTA Buttons */}
+        {/* CTA Buttons — Side by side with clear spacing */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={loaded ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-wrap items-center gap-4"
+          className="flex items-center gap-6"
         >
-          <Link href="/booking" className="btn-primary">
+          <Link href="/booking" className="btn-primary !shrink-0">
             Book Consultation
           </Link>
-          <Link href="#results" className="btn-secondary btn-secondary-dark">
+          <Link href="#results" className="btn-secondary btn-secondary-dark !shrink-0">
             See Results
           </Link>
         </motion.div>
       </motion.div>
 
-      {/* ── Scroll Indicator ── */}
+      {/* ── Scroll Indicator — Fixed at bottom center, outside document flow ── */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={loaded ? { opacity: 1 } : {}}
         transition={{ delay: 1.2, duration: 0.6 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+        className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20"
       >
-        <div className="flex flex-col items-center gap-2">
-          <span className="text-caption" style={{ letterSpacing: "0.15em", fontSize: "0.6875rem", color: "var(--color-accent)" }}>Scroll</span>
+        <div className="flex flex-col items-center gap-3">
+          <span className="text-caption" style={{ letterSpacing: "0.2em", fontSize: "0.625rem", color: "var(--color-accent)" }}>SCROLL</span>
+          {/* Vertical line */}
           <motion.div
-            animate={{ y: [0, 8, 0] }}
+            animate={{ y: [0, 12, 0] }}
             transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-            className="w-px h-8"
+            className="relative w-px h-10"
             style={{ background: "var(--color-accent)" }}
-          />
+          >
+            {/* Arrow at bottom of line */}
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 12 12"
+              fill="none"
+              className="absolute -bottom-1 left-1/2 -translate-x-1/2"
+            >
+              <path
+                d="M3 4.5L6 8L9 4.5"
+                stroke="var(--color-accent)"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </motion.div>
         </div>
       </motion.div>
     </section>
