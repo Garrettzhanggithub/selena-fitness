@@ -15,6 +15,7 @@ const goals = [
 
 export default function Booking() {
   const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<"idle" | "submitting" | "error">("idle");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -29,11 +30,34 @@ export default function Booking() {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Replace with actual form submission logic
-    console.log("Booking submitted:", formData);
-    setSubmitted(true);
+
+    const formId = process.env.NEXT_PUBLIC_FORMSPREE_BOOKING_ID || "maewkkzg";
+
+    setStatus("submitting");
+    try {
+      const res = await fetch(`https://formspree.io/f/${formId}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          goal: formData.goal,
+          preferred_start_date: formData.startDate,
+          _subject: `New Booking Request — ${formData.name}`,
+        }),
+      });
+
+      if (res.ok) {
+        setSubmitted(true);
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   };
 
   if (submitted) {
@@ -188,13 +212,18 @@ export default function Booking() {
 
           {/* Submit */}
           <motion.div
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            whileHover={status === "submitting" ? undefined : { scale: 1.02 }}
+            whileTap={status === "submitting" ? undefined : { scale: 0.98 }}
             className="pt-4"
           >
-            <button type="submit" className="btn-primary w-full">
-              Request Consultation
+            <button type="submit" className="btn-primary w-full" disabled={status === "submitting"}>
+              {status === "submitting" ? "Sending..." : "Request Consultation"}
             </button>
+            {status === "error" && (
+              <p className="text-center text-sm mt-3" style={{ color: "var(--color-error)" }}>
+                Something went wrong. Please try again or email selena@fitness.com.
+              </p>
+            )}
           </motion.div>
 
           <p className="text-center text-caption mt-4" style={{ color: "rgba(255,255,255,0.35)" }}>

@@ -32,7 +32,7 @@ const containerVariants = {
 
 export default function Results() {
   return (
-    <section className="section-full" style={{ background: "var(--bg-alt)" }}>
+    <section id="results" className="section-full" style={{ background: "var(--bg-alt)" }}>
       <div className="container">
         {/* Section Header */}
         <motion.div

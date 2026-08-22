@@ -30,7 +30,7 @@ const questions = [
   },
   {
     q: "Where do sessions take place?",
-    a: "In-person sessions are held at our private studio in Los Angeles. Online coaching clients train from home with full support via video check-ins and messaging.",
+    a: "In-person sessions are held at our private studio in Vancouver, Canada. Online coaching clients train from home with full support via video check-ins and messaging.",
   },
   {
     q: "How soon will I see results?",

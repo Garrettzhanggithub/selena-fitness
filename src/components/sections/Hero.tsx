@@ -43,7 +43,7 @@ export default function Hero() {
           className="text-caption mb-6"
           style={{ color: "var(--color-accent)" }}
         >
-          Personal Training · Los Angeles
+          Personal Training · Vancouver, Canada
         </motion.p>
 
         {/* Headline — max 8 words, transformation promise */}

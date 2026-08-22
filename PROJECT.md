@@ -45,6 +45,18 @@
 | **写文章** | 标题、分类、摘要、Markdown 内容 |
 | **自动保存** | 保存到 `content/blog/` 目录 |
 
+## 📨 表单系统（Formspree）
+
+| 表单 | 环境变量 | 用途 |
+|------|---------|------|
+| 预约（首页 Booking + `/booking`） | `NEXT_PUBLIC_FORMSPREE_BOOKING_ID` | 预约请求直达邮箱 |
+| 联系（`/contact`） | `NEXT_PUBLIC_FORMSPREE_CONTACT_ID` | 咨询消息直达邮箱 |
+
+**启用步骤**（未配置时提交会显示错误提示，不会假成功）：
+1. 到 https://formspree.io 注册并新建表单，获得 `f/xxxxx` 形式的 Form ID
+2. 把 ID 填入 `.env.local`（本地）或 Vercel 项目 Settings → Environment Variables（线上）
+3. 参考 `.env.example`
+
 ## 📁 GitHub 所有仓库
 
 | 仓库 | 语言 | 类型 |

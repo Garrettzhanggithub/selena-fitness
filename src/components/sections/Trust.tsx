@@ -6,7 +6,7 @@ const stats = [
   { value: "500+", label: "Clients Served" },
   { value: "NASM", label: "Certified Trainer" },
   { value: "10 Years", label: "Experience" },
-  { value: "4.9★", label: "Client Rating" },
+  { value: "150+", label: "Transformations" },
 ];
 
 const containerVariants = {

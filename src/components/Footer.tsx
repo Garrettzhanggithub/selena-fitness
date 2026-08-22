@@ -31,7 +31,7 @@ export default function Footer() {
             <h4 className="font-semibold text-[var(--text-primary)] mb-4 text-sm">Connect</h4>
             <ul className="space-y-2">
               {["Instagram", "YouTube", "TikTok"].map((s) => (
-                <li key={s}><a href="#" className="text-small hover:text-[var(--accent)] transition-colors">{s}</a></li>
+                <li key={s}><Link href="/contact" className="text-small hover:text-[var(--accent)] transition-colors">{s}</Link></li>
               ))}
             </ul>
           </div>
@@ -40,7 +40,7 @@ export default function Footer() {
           <p className="text-xs text-[var(--text-tertiary)]">© 2025 Selena Fitness. All rights reserved.</p>
           <div className="flex gap-6">
             <Link href="/contact" className="text-xs text-[var(--text-tertiary)] hover:text-[var(--accent)] transition-colors">Contact</Link>
-            <a href="#" className="text-xs text-[var(--text-tertiary)] hover:text-[var(--accent)] transition-colors">Privacy Policy</a>
+            <Link href="/privacy" className="text-xs text-[var(--text-tertiary)] hover:text-[var(--accent)] transition-colors">Privacy Policy</Link>
           </div>
         </div>
       </div>

@@ -67,6 +67,21 @@
   /* ── Transitions (7) ── */
   --ease-out-expo:      cubic-bezier(0.22, 1, 0.36, 1);
   --ease-out:           cubic-bezier(0.25, 0.1, 0.25, 1);
+
+  /* ── Compat Aliases (fix broken references in components) ──
+     Design PRD names (--color-primary / --color-secondary / --accent)
+     mapped onto the actual theme-aware tokens used site-wide. */
+  --color-primary:      var(--text-primary);
+  --color-secondary:    var(--color-text-on-dark);
+  --color-border:       var(--divider);
+  --accent:             var(--color-accent);
+  --accent-hover:       var(--color-accent-hover);
+  --accent-light:       var(--color-accent);
+  --bg-light-section:   var(--bg-alt);
+  --radius-lg:          var(--radius-card);
+  --text-small:         0.875rem;
+  --white-6:            rgba(255, 255, 255, 0.06);
+  --white-50:           rgba(255, 255, 255, 0.5);
 }
 
 /* ═══════════════════════════════════════════════

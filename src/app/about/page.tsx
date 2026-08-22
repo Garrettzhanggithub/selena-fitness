@@ -29,10 +29,10 @@ function ScaleIn({ children, delay = 0 }: { children: React.ReactNode; delay?: n
 }
 
 const certifications = [
-  { icon: "🏥", title: "Registered Nurse (RN)", desc: "Licensed in Canada with 3+ years clinical experience in acute care and rehabilitation." },
-  { icon: "💪", title: "NASM-CPT Certified", desc: "National Academy of Sports Medicine — Personal Training certification with emphasis on corrective exercise." },
-  { icon: "🧠", title: "Precision Nutrition Level 2", desc: "Evidence-based nutrition coaching for performance, body composition, and metabolic health." },
-  { icon: "🤰", title: "Pre/Post-Natal Specialist", desc: "Specialized training protocols for expecting mothers and postpartum recovery." },
+  { icon: "RN", title: "Registered Nurse (RN)", desc: "Licensed in Canada with 3+ years clinical experience in acute care and rehabilitation." },
+  { icon: "CPT", title: "NASM-CPT Certified", desc: "National Academy of Sports Medicine — Personal Training certification with emphasis on corrective exercise." },
+  { icon: "PN", title: "Precision Nutrition Level 2", desc: "Evidence-based nutrition coaching for performance, body composition, and metabolic health." },
+  { icon: "PP", title: "Pre/Post-Natal Specialist", desc: "Specialized training protocols for expecting mothers and postpartum recovery." },
 ];
 
 const approach = [
@@ -103,7 +103,17 @@ export default function AboutPage() {
             {certifications.map((c, i) => (
               <FadeUp key={c.title} delay={i}>
                 <div style={{ background: "var(--text-primary)", borderRadius: "var(--radius-lg)", padding: 32, boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }} className="flex gap-4 items-start">
-                  <span className="text-3xl">{c.icon}</span>
+                  <span
+                    className="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center font-semibold tracking-wider"
+                    style={{
+                      background: "var(--color-accent)",
+                      color: "#0A0A0A",
+                      fontSize: "0.75rem",
+                      letterSpacing: "0.04em",
+                    }}
+                  >
+                    {c.icon}
+                  </span>
                   <div>
                     <h3 className="heading-md mb-1" style={{ color: "var(--bg-alt)" }}>{c.title}</h3>
                     <p className="text-small">{c.desc}</p>
